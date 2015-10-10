@@ -12,31 +12,29 @@ namespace CitiesZombieMod
 
         public static void LogClassAndMethodName(string className, string methodName)
         {
-            if (logClassAndMethodName)
-            {
-                Debug.Log("Class: " + className + " | Method: " + methodName);
-            }
+            if (!logClassAndMethodName) return;
+            LogText(PluginManager.MessageType.Message, "Class: " + className + " | Method: " + methodName);
         }
 
-        public static void Log(object s)
+        public static void Log(string message)
         {
             if (!debuggingEnabled) return;
-            LogObject(PluginManager.MessageType.Message, s);
+            LogText(PluginManager.MessageType.Message, message);
         }
 
-        public static void Error(object s)
+        public static void Error(string Error)
         {
             if (!debuggingEnabled) return;
-            LogObject(PluginManager.MessageType.Error, s);
+            LogText(PluginManager.MessageType.Error, Error);
         }
 
-        public static void Warning(object s)
+        public static void Warning(string warning)
         {
             if (!debuggingEnabled) return;
-            LogObject(PluginManager.MessageType.Warning, s);
+            LogText(PluginManager.MessageType.Warning, warning);
         }
 
-        private static void LogObject(PluginManager.MessageType messageType, object myObject)
+        public static void LogObject(PluginManager.MessageType messageType, object myObject)
         {
             string myObjectDetails = "";
             foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(myObject))
@@ -46,6 +44,11 @@ namespace CitiesZombieMod
                 myObjectDetails += name + ": " + value + "\n";
             }
             Debug.Log(messageType + " | " + prefix + " | " +myObjectDetails);
+        }
+
+        private static void LogText(PluginManager.MessageType messageType, string text)
+        {
+            Debug.Log(messageType + " | " + prefix + " | " + text);
         }
     }
 }

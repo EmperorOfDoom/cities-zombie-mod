@@ -8,7 +8,7 @@ namespace CitiesZombieMod
         {
             get
             {
-                return "Zombie Mod";
+                return "Zombie Mod v2";
             }
         }
         public string Description
