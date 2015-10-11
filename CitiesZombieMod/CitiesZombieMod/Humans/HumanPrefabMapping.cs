@@ -5,14 +5,14 @@ namespace CitiesZombieMod
     public class HumanPrefabMapping
     {
         private MonitorHelper _helper;
-        private MonitorData _data;
+        private HumanMonitorData _data;
 
         private PrefabMapping<uint> _mapping;
 
         public HumanPrefabMapping()
         {
             _helper = MonitorHelper.Instance;
-            _data = MonitorData.Instance;
+            _data = HumanMonitorData.Instance;
 
             _mapping = new PrefabMapping<uint>();
         }
@@ -42,15 +42,6 @@ namespace CitiesZombieMod
             if (ai is HumanAI)
             {
                 _mapping.AddMapping(prefabID, _data._Humans);
-
-                if (ai is ResidentAI)
-                    _mapping.AddMapping(prefabID, _data._Residents);
-                else if (ai is ServicePersonAI)
-                    _mapping.AddMapping(prefabID, _data._ServicePersons);
-                else if (ai is TouristAI)
-                    _mapping.AddMapping(prefabID, _data._Tourists);
-                else
-                    _mapping.AddMapping(prefabID, _data._HumanOther);
             }
         }
     }

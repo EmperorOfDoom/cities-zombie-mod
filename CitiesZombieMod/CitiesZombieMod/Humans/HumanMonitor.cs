@@ -8,16 +8,17 @@ namespace CitiesZombieMod
     public class HumanMonitor : ThreadingExtensionBase
     {
         private MonitorHelper _helper;
-        private MonitorData _data;
-
+        private HumanMonitorData _data;
+        private ZombieManager _zombieManager;
         private HumanPrefabMapping _mapping;
+       
 
         private bool _initialized;
         private bool _terminated;
         private bool _paused;
         private int _lastProcessedFrame;
 
-        private CitizenManager _instance;
+        private CitizenManager _citizenManager;
         private int _capacity;
 
         private Citizen _human;
@@ -28,7 +29,7 @@ namespace CitiesZombieMod
         public override void OnCreated(IThreading threading)
         {
             _helper = MonitorHelper.Instance;
-
+            
             _initialized = false;
             _terminated = false;
 
@@ -83,14 +84,14 @@ namespace CitiesZombieMod
             {
                 if (!_initialized)
                 {
-                    _data = MonitorData.Instance;
+                    _data = HumanMonitorData.Instance;
 
                     _mapping = new HumanPrefabMapping();
 
                     _paused = false;
 
-                    _instance = Singleton<CitizenManager>.instance;
-                    _capacity = _instance.m_citizens.m_buffer.Length;
+                    _citizenManager = Singleton<CitizenManager>.instance;
+                    _capacity = _citizenManager.m_citizens.m_buffer.Length;
 
                     _id = (uint)_capacity;
 
@@ -164,11 +165,6 @@ namespace CitiesZombieMod
             if (_data != null)
             {
                 _data._Humans.Clear();
-
-                _data._Residents.Clear();
-                _data._ServicePersons.Clear();
-                _data._Tourists.Clear();
-                _data._HumanOther.Clear();
             }
 
             base.OnReleased();
@@ -203,13 +199,23 @@ namespace CitiesZombieMod
             return new int[2] { frame_first, frame_last };
         }
 
+        private InstanceManager MyInstance = Singleton<InstanceManager>.instance;
+
         private bool GetHuman()
         {
-            _human = _instance.m_citizens.m_buffer[(int)_id];
+            _human = _citizenManager.m_citizens.m_buffer[(int)_id];
+            CitizenInstance _humanInstance = _citizenManager.m_instances.m_buffer[_human.m_instance];
 
             if (_human.Dead)
-            {
-                Logger.Warning("Human died, spawning zombie.");
+            {    
+                if (_zombieManager == null) _zombieManager = ZombieManager.Instance;
+                //   Logger.Warning("Human died, spawning zombie.");
+                // _human.GetCitizenInfo(_id).m_instanceID
+                Logger.Log(_citizenManager.GetCitizenName(_id) + " died at location " +_human.CurrentLocation + " at world posistion " 
+                    + _humanInstance.GetSmoothPosition(_human.m_instance).x + ","
+                    + _humanInstance.GetSmoothPosition(_human.m_instance).y + ","
+                    + _humanInstance.GetSmoothPosition(_human.m_instance).z);
+                _zombieManager.spawnZombie();
                 return false;
             }
 
@@ -259,11 +265,6 @@ namespace CitiesZombieMod
         private void RemoveHuman(uint id)
         {
             _data._Humans.Remove(id);
-
-            _data._Residents.Remove(id);
-            _data._ServicePersons.Remove(id);
-            _data._Tourists.Remove(id);
-            _data._HumanOther.Remove(id);
         }
 
         private void OutputDebugLog()
@@ -272,7 +273,7 @@ namespace CitiesZombieMod
 
             if (!_initialized) return;
 
-            if (!SimulationManager.instance.SimulationPaused) return;
+            if (!SimulationManager.instance.SimulationPaused) return; 
 
             if (_paused) return;
 
@@ -282,11 +283,6 @@ namespace CitiesZombieMod
             log += String.Format("{0}   Total\r\n", _data._Humans.Count);
             log += String.Format("{0}   Updated\r\n", _data._HumansUpdated.Count);
             log += String.Format("{0}   Removed\r\n", _data._HumansRemoved.Count);
-            log += "\r\n";
-            log += String.Format("{0}   Resident(s)\r\n", _data._Residents.Count);
-            log += String.Format("{0}   ServicePerson(s)\r\n", _data._ServicePersons.Count);
-            log += String.Format("{0}   Tourist(s)\r\n", _data._Tourists.Count);
-            log += String.Format("{0}   Other\r\n", _data._HumanOther.Count);
             log += "\r\n";
 
             Logger.Log(log);
