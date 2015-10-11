@@ -28,7 +28,6 @@ namespace CitiesZombieMod
 
         public override void OnUpdate(float realTimeDelta, float simulationTimeDelta)
         {
-            Logger.Log("Test");
             if (loadingLevel) return;
         }
     }

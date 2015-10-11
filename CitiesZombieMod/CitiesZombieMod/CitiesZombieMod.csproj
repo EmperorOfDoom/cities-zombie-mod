@@ -56,6 +56,11 @@
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Loading\LoadingExtention.cs" />
+    <Compile Include="Monitor\HumanMonitor.cs" />
+    <Compile Include="Monitor\HumanPrefabMapping.cs" />
+    <Compile Include="Monitor\MonitorData.cs" />
+    <Compile Include="Monitor\MonitorHelper.cs" />
+    <Compile Include="Monitor\PrefabMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedirectionHelper\RedirectionHelper.cs" />
     <Compile Include="Threading\ThreadingExtension.cs" />
