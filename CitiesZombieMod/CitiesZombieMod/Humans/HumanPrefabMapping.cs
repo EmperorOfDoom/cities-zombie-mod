@@ -27,6 +27,12 @@ namespace CitiesZombieMod
             return _mapping.GetMapping(prefabID);
         }
 
+        public void AddTurnedMapping(CitizenInfo human) {
+            int prefabID = human.m_prefabDataIndex;
+            if (!_mapping.PrefabMapped(prefabID))
+                _mapping.AddMapping(prefabID, _data._TurnedHumans);
+        }
+
         private void CategorizePrefab(CitizenInfo human)
         {
             CitizenAI ai = human.m_citizenAI;

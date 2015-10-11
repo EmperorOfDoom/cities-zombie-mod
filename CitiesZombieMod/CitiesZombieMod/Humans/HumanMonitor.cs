@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ICities;
 using ColossalFramework;
+using UnityEngine;
 
 namespace CitiesZombieMod
 {
@@ -124,10 +125,9 @@ namespace CitiesZombieMod
                         {
                             id = (uint)i;
 
-                            if (UpdateHuman(id))
+                            if (UpdateHuman(id)) {
                                 _data._HumansUpdated.Add(id);
-                            else if (_data._Humans.Contains(id))
-                            {
+                            } else if (_data._Humans.Contains(id)) {
                                 _data._HumansRemoved.Add(id);
                                 RemoveHuman(id);
                             }
@@ -199,23 +199,26 @@ namespace CitiesZombieMod
             return new int[2] { frame_first, frame_last };
         }
 
-        private InstanceManager MyInstance = Singleton<InstanceManager>.instance;
+        private uint _lastId;
 
         private bool GetHuman()
         {
             _human = _citizenManager.m_citizens.m_buffer[(int)_id];
-            CitizenInstance _humanInstance = _citizenManager.m_instances.m_buffer[_human.m_instance];
-
+            
             if (_human.Dead)
             {    
                 if (_zombieManager == null) _zombieManager = ZombieManager.Instance;
-                //   Logger.Warning("Human died, spawning zombie.");
-                // _human.GetCitizenInfo(_id).m_instanceID
-                Logger.Log(_citizenManager.GetCitizenName(_id) + " died at location " +_human.CurrentLocation + " at world posistion " 
-                    + _humanInstance.GetSmoothPosition(_human.m_instance).x + ","
-                    + _humanInstance.GetSmoothPosition(_human.m_instance).y + ","
-                    + _humanInstance.GetSmoothPosition(_human.m_instance).z);
-                _zombieManager.spawnZombie();
+                
+                if (! _data.IsTurnedHuman(_id) && _lastId != _id) // only spawn zombie if not yet turned.
+                {
+                    _lastId = _id;
+                    Vector3 position = GetPosition(_human);
+                    Logger.Log(_citizenManager.GetCitizenName(_id) + " died at location " + _human.CurrentLocation + " at world posistion " + position);
+
+                    _zombieManager.SpawnZombie(position);
+                    _mapping.AddTurnedMapping(_human.GetCitizenInfo(_id));
+                }
+
                 return false;
             }
 
@@ -234,6 +237,13 @@ namespace CitiesZombieMod
                 return false;
 
             return true;
+        }
+
+        private Vector3 GetPosition(Citizen human)
+        {
+            ushort buildingIndex = human.m_visitBuilding;
+            if (human.CurrentLocation == Citizen.Location.Home) buildingIndex = human.m_homeBuilding;
+            return Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingIndex].m_position;
         }
 
         private bool UpdateHuman(uint id)
@@ -280,7 +290,8 @@ namespace CitiesZombieMod
             string log = "\r\n";
             log += "==== HUMANS ====\r\n";
             log += "\r\n";
-            log += String.Format("{0}   Total\r\n", _data._Humans.Count);
+            log += String.Format("{0}   Total\r\n", _data._Humans.Count); 
+            log += String.Format("{0}   Turned\r\n", _data._TurnedHumans.Count);
             log += String.Format("{0}   Updated\r\n", _data._HumansUpdated.Count);
             log += String.Format("{0}   Removed\r\n", _data._HumansRemoved.Count);
             log += "\r\n";

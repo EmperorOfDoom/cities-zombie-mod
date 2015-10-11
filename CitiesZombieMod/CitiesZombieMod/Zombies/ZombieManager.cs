@@ -1,5 +1,7 @@
-﻿using ICities;
+﻿using ColossalFramework;
+using ICities;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CitiesZombieMod
 {
@@ -37,21 +39,16 @@ namespace CitiesZombieMod
         public override void OnUpdate(float realTimeDelta, float simulationTimeDelta)
         {
             if (loadingLevel) return;
-            Logger.Log("Current amount of zombies: " + _zombies.Values.Count);
-            
-           // foreach (KeyValuePair<uint, Zombie> zombie in _zombies)
-           // {
-           //     Logger.Log("Zombie " + zombie.Key + " Has Name " + zombie.Value.name);
-           // }
+            Logger.Log("Current amount of zombies: " + _zombies.Values.Count); 
         }
 
-        public void spawnZombie()
+
+        public void SpawnZombie(Vector3 position)
         {
             _last_assigned_zombie_id += 1;
-            Zombie zombie = new Zombie(_last_assigned_zombie_id);
-        //    Logger.Log("Added zombie with id " + zombie.id + " to the zombie pool.");
-            _zombies[zombie.id] = zombie;
-         //   Logger.Log("The zombie pool contains id " + zombie.id + " is " + _zombies.ContainsKey(zombie.id));
-        }               
+            Zombie zombie = new Zombie(_last_assigned_zombie_id, position);
+            //    Logger.Log("Added zombie with id " + zombie.id + " to the zombie pool.");
+            _zombies[zombie.m_id] = zombie;
+        }    
     }
 }
