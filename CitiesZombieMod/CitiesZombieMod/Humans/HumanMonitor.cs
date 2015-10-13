@@ -10,7 +10,7 @@ namespace CitiesZombieMod
     {
         private MonitorHelper _helper;
         private HumanMonitorData _data;
-        private ZombieManager _zombieManager;
+        private ZombieManagerThread _zombieManager;
         private HumanPrefabMapping _mapping;
        
 
@@ -207,7 +207,7 @@ namespace CitiesZombieMod
             
             if (_human.Dead)
             {    
-                if (_zombieManager == null) _zombieManager = ZombieManager.Instance;
+                if (_zombieManager == null) _zombieManager = ZombieManagerThread.Instance;
                 
                 if (! _data.IsTurnedHuman(_id) && _lastId != _id) // only spawn zombie if not yet turned.
                 {

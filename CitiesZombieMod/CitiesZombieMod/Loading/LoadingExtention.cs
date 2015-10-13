@@ -19,9 +19,9 @@ namespace CitiesZombieMod
             {
                 if (mode != LoadMode.NewGame && mode != LoadMode.LoadGame) return;
 
-                if (ZombieManager.Instance != null)
+                if (ZombieManagerThread.Instance != null)
                 {
-                    ZombieManager.Instance.OnLevelLoaded(mode);
+                    ZombieManagerThread.Instance.OnLevelLoaded(mode);
                 }
 
                 if (_helper != null)
@@ -32,9 +32,9 @@ namespace CitiesZombieMod
 
             public override void OnLevelUnloading()
             {
-                if (ZombieManager.Instance != null)
+                if (ZombieManagerThread.Instance != null)
                 {
-                    ZombieManager.Instance.OnLevelUnloading();
+                    ZombieManagerThread.Instance.OnLevelUnloading();
                 }
 
                 if (_helper != null)

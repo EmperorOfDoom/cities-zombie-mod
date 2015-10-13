@@ -23,13 +23,13 @@ namespace CitiesZombieMod
             public bool m_transition;
         }
 
-        public ZombieInstance.Frame m_frame0;
-        public ZombieInstance.Frame m_frame1;
-        public ZombieInstance.Frame m_frame2;
-        public ZombieInstance.Frame m_frame3;
+        public Frame m_frame0;
+        public Frame m_frame1;
+        public Frame m_frame2;
+        public Frame m_frame3;
         public Vector4 m_targetPos;
         public Vector2 m_targetDir;
-        public ZombieInstance.Flags m_flags;
+        public Flags m_flags;
         public uint m_zombie;
         public uint m_path;
         public ushort m_sourceBuilding;

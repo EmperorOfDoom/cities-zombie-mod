@@ -434,7 +434,7 @@ namespace CitiesZombieMod
 
         public override PrefabAI GetAI()
         {
-            return this.m_citizenAI;
+            return this.m_zombieAI;
         }
 
         public override ItemClass.Service GetService()

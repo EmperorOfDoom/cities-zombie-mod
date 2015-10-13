@@ -64,10 +64,12 @@
     <Compile Include="Humans\PrefabMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedirectionHelper\RedirectionHelper.cs" />
+    <Compile Include="Zombies\Zombie.cs" />
     <Compile Include="Zombies\ZombieInfo.cs" />
     <Compile Include="Zombies\ZombieInstance.cs" />
     <Compile Include="Zombies\ZombieAI.cs" />
     <Compile Include="Zombies\ZombieManager.cs" />
+    <Compile Include="Zombies\ZombieManagerThread.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
