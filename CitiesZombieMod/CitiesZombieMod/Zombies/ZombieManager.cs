@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CitiesZombieMod
 {
-    class ZombieManager : SimulationManagerBase<CitizenManager, CitizenProperties>, IAudibleManager, IRenderableManager, ISimulationManager {
+    class ZombieManager : SimulationManagerBase<ZombieManager, ZombieProperties>, IAudibleManager, IRenderableManager, ISimulationManager {
         [NonSerialized]
         public int ID_Speed;
 

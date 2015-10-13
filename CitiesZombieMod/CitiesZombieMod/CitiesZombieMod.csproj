@@ -69,7 +69,6 @@
     <Compile Include="Zombies\ZombieInstance.cs" />
     <Compile Include="Zombies\ZombieAI.cs" />
     <Compile Include="Zombies\ZombieManager.cs" />
-    <Compile Include="Zombies\ZombieManagerThread.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
