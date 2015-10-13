@@ -1,17 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CitiesZombieMod
+namespace CitiesZombieMod.Zombies
 {
-    class Zombie
+    public struct Zombie
     {
-        public uint m_id;
-        public string m_name;
-        public Vector3 m_position;
-        public Zombie(uint id, Vector3 position)
+        public enum Flags
         {
-            m_id = id;
-            m_position = position;
-            m_name = "Zombie " + id;          
+            None = 0,
+            Created = 1,
+            Dead = 4,
+            All = -1
         }
+        public ushort m_instance;
+        public byte m_health;
     }
 }

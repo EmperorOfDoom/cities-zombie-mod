@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CitiesZombieMod</RootNamespace>
     <AssemblyName>CitiesZombieMod</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,7 +64,8 @@
     <Compile Include="Humans\PrefabMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedirectionHelper\RedirectionHelper.cs" />
-    <Compile Include="Zombies\Zombie.cs" />
+    <Compile Include="Zombies\ZombieInfo.cs" />
+    <Compile Include="Zombies\ZombieInstance.cs" />
     <Compile Include="Zombies\ZombieAI.cs" />
     <Compile Include="Zombies\ZombieManager.cs" />
   </ItemGroup>

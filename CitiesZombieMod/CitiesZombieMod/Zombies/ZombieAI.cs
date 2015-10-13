@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CitiesZombieMod.Zombies
+namespace CitiesZombieMod
 {
-    class ZombieAI
+    public class ZombieAI : PrefabAI
     {
+        [NonSerialized]
+        public ZombieInfo m_info;
+
+        public virtual void InitializeAI()
+        {
+        }
+
+        public virtual void ReleaseAI()
+        {
+        }
     }
 }
