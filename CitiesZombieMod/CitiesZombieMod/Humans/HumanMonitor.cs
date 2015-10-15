@@ -213,6 +213,12 @@ namespace CitiesZombieMod
                     Vector3 position = GetPosition(_human);
                     Logger.Log(_citizenManager.GetCitizenName(_id) + " died at location " + _human.CurrentLocation + " at world posistion " + position);
 
+                    uint zombieId;
+                    ushort zombieInstanceID;
+                    if(Singleton<ZombieManager>.instance.CreateZombie(out zombieId, ref Singleton<SimulationManager>.instance.m_randomizer))
+                    {
+                        Singleton<ZombieManager>.instance.CreateZombieInstance(out zombieInstanceID, ref Singleton<SimulationManager>.instance.m_randomizer, ZombieInfo info, zombieId)
+                    } 
                    // _zombieManager.SpawnZombie(position);
                     _mapping.AddTurnedMapping(_human.GetCitizenInfo(_id));
                 }

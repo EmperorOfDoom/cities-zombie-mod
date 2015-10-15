@@ -11,6 +11,10 @@ namespace CitiesZombieMod
             Created = 1,
             Deleted = 2,
             AtTarget = 4,
+            Character = 8,
+            InsideBuilding = 16,
+            WaitingPath = 32,
+            OnPath = 64,
             All = -1
         }
 
@@ -70,6 +74,63 @@ namespace CitiesZombieMod
             }
         }
 
+        public void Spawn(ushort instanceID)
+        {
+            if ((this.m_flags & ZombieInstance.Flags.Character) == ZombieInstance.Flags.None)
+            {
+                ZombieInstance mFlags = this;
+                mFlags.m_flags = mFlags.m_flags | ZombieInstance.Flags.Character;
+                Singleton<ZombieManager>.instance.AddToGrid(instanceID, ref this);
+            }
+        }
 
+        public void Unspawn(ushort instanceID)
+        {
+            if ((this.m_flags & ZombieInstance.Flags.Character) != ZombieInstance.Flags.None)
+            {
+                Singleton<ZombieManager>.instance.RemoveFromGrid(instanceID, ref this);
+                ZombieInstance mFlags = this;
+                mFlags.m_flags = mFlags.m_flags & (ZombieInstance.Flags.Created | ZombieInstance.Flags.Deleted | ZombieInstance.Flags.InsideBuilding | ZombieInstance.Flags.WaitingPath | ZombieInstance.Flags.OnPath | ZombieInstance.Flags.AtTarget);
+            }
+        }
+
+        public ZombieInstance.Frame GetLastFrameData()
+        {
+            switch (this.m_lastFrame)
+            {
+                case 0:
+                    return this.m_frame0;
+                case 1:
+                    return this.m_frame1;
+                case 2:
+                    return this.m_frame2;
+                case 3:
+                    return this.m_frame3;
+                default:
+                    return this.m_frame0;
+            }
+        }
+
+        public void SetFrameData(uint simulationFrame, ZombieInstance.Frame data)
+        {
+            this.m_lastFrame = (byte)(simulationFrame >> 4 & 3u);
+            switch (this.m_lastFrame)
+            {
+                case 0:
+                    this.m_frame0 = data;
+                    return;
+                case 1:
+                    this.m_frame1 = data;
+                    return;
+                case 2:
+                    this.m_frame2 = data;
+                    return;
+                case 3:
+                    this.m_frame3 = data;
+                    return;
+                default:
+                    return;
+            }
+        }
     }
 }
