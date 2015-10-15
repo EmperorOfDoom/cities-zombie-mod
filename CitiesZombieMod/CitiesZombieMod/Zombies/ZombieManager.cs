@@ -1,6 +1,7 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Math;
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace CitiesZombieMod
@@ -107,6 +108,8 @@ namespace CitiesZombieMod
                 {
                     this.m_zombies.m_buffer[(int)((UIntPtr)zombie)].m_instance = instanceID;
                 }
+                Logger.Error("InstanceID:"+instanceID);
+                Logger.Error("Buffer:"+ this.m_instances.m_buffer[(int)instanceID]);
                 info.m_zombieAI.CreateInstance(instanceID, ref this.m_instances.m_buffer[(int)instanceID]);
                 this.m_instanceCount = (int)(this.m_instances.ItemCount() - 1u);
                 Logger.Log("Zombie Instance created with instance id : " + instanceID);

@@ -217,7 +217,15 @@ namespace CitiesZombieMod
                     ushort zombieInstanceID;
                     if(Singleton<ZombieManager>.instance.CreateZombie(out zombieId, ref Singleton<SimulationManager>.instance.m_randomizer))
                     {
-                        Singleton<ZombieManager>.instance.CreateZombieInstance(out zombieInstanceID, ref Singleton<SimulationManager>.instance.m_randomizer, ZombieInfo info, zombieId)
+                        Logger.Log("1");
+                        ZombieInfo zombieInfo = new ZombieInfo();
+                        Logger.Log("2");
+                       // zombieInfo.InitializePrefab();
+                        Logger.Log("3");
+                       // zombieInfo.InitializePrefabInstance();
+                        Logger.Log("4");
+                        Singleton<ZombieManager>.instance.CreateZombieInstance(out zombieInstanceID, ref Singleton<SimulationManager>.instance.m_randomizer, zombieInfo, zombieId);
+                        Logger.Log("5");
                     } 
                    // _zombieManager.SpawnZombie(position);
                     _mapping.AddTurnedMapping(_human.GetCitizenInfo(_id));

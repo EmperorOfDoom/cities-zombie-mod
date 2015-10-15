@@ -10,6 +10,11 @@ namespace CitiesZombieMod
         static bool debuggingEnabled = true;
         static bool logClassAndMethodName = true;
 
+        public static void LogLineNumber([System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0) { 
+            if (!debuggingEnabled) return;
+            LogText(PluginManager.MessageType.Message, "source line number: " + sourceLineNumber);
+        }
+
         public static void LogClassAndMethodName(string className, string methodName)
         {
             if (!logClassAndMethodName) return;

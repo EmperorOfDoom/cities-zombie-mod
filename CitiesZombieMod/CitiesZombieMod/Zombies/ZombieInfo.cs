@@ -84,13 +84,17 @@ namespace CitiesZombieMod
 
         public override void InitializePrefab()
         {
+            Logger.LogLineNumber();
             base.InitializePrefab();
+            Logger.LogLineNumber();
             if (this.m_class == null)
             {
+                Logger.LogLineNumber();
                 throw new PrefabException(this, "Class missing");
             }
             if (this.m_skinRenderer != null)
             {
+                Logger.LogLineNumber();
                 Material sharedMaterial = this.m_skinRenderer.sharedMaterial;
                 this.m_color0 = sharedMaterial.GetColor("_ColorV0");
                 this.m_color1 = sharedMaterial.GetColor("_ColorV1");
@@ -106,6 +110,7 @@ namespace CitiesZombieMod
             }
             if (this.m_lodObject != null)
             {
+                Logger.LogLineNumber();
                 MeshFilter component = this.m_lodObject.GetComponent<MeshFilter>();
                 this.m_lodMesh = component.sharedMesh;
                 this.m_lodMaterial = this.m_lodObject.GetComponent<Renderer>().sharedMaterial;
