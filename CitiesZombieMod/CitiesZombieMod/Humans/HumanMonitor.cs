@@ -10,7 +10,7 @@ namespace CitiesZombieMod
     {
         private MonitorHelper _helper;
         private HumanMonitorData _data;
-        private ZombieManagerThread _zombieManager;
+        private ZombieManager _zombieManager;
         private HumanPrefabMapping _mapping;
        
 
@@ -30,7 +30,7 @@ namespace CitiesZombieMod
         public override void OnCreated(IThreading threading)
         {
             _helper = MonitorHelper.Instance;
-            
+            _zombieManager = ZombieManager.instance;
             _initialized = false;
             _terminated = false;
 
@@ -207,15 +207,13 @@ namespace CitiesZombieMod
             
             if (_human.Dead)
             {    
-                if (_zombieManager == null) _zombieManager = ZombieManagerThread.Instance;
-                
                 if (! _data.IsTurnedHuman(_id) && _lastId != _id) // only spawn zombie if not yet turned.
                 {
                     _lastId = _id;
                     Vector3 position = GetPosition(_human);
                     Logger.Log(_citizenManager.GetCitizenName(_id) + " died at location " + _human.CurrentLocation + " at world posistion " + position);
 
-                    _zombieManager.SpawnZombie(position);
+                   // _zombieManager.SpawnZombie(position);
                     _mapping.AddTurnedMapping(_human.GetCitizenInfo(_id));
                 }
 

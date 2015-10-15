@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using ColossalFramework;
+using System.Collections;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace CitiesZombieMod
 { 
@@ -8,29 +11,27 @@ namespace CitiesZombieMod
 
         private void Awake()
         {
-     //      if (Application.isPlaying)
-     //      {
-     //          Singleton<LoadingManager>.instance.QueueLoadingAction(this.InitializeProperties());
-     //      }
+           if (Application.isPlaying)
+           {
+               Singleton<LoadingManager>.instance.QueueLoadingAction(this.InitializeProperties());
+           }
         }
 
-    //   [DebuggerHidden]
-    //   private IEnumerator InitializeProperties()
-    //   {
-    //       ZombieProperties.<InitializeProperties> c__IteratorC < InitializeProperties > c__IteratorC = new ZombieProperties.< InitializeProperties > c__IteratorC();
-    //          < InitializeProperties > c__IteratorC.<> f__this = this;
-    //      return < InitializeProperties > c__IteratorC;
-    //   }
-    //
-    //   private void OnDestroy()
-    //   {
-        //    if (Application.isPlaying)
-        //    {
-        //        Singleton<LoadingManager>.instance.m_loadingProfilerMain.BeginLoading("CitizenProperties");
-        //        Singleton<ZombieManager>.instance.DestroyProperties(this);
-        //        Singleton<LoadingManager>.instance.m_loadingProfilerMain.EndLoading();
-        //    }
-    //    }
+        [DebuggerHidden]
+        private IEnumerator InitializeProperties()
+        {
+            return (IEnumerator) new ZombieProperties();
+        }
+
+        private void OnDestroy()
+       {
+           if (Application.isPlaying)
+           {
+               Singleton<LoadingManager>.instance.m_loadingProfilerMain.BeginLoading("ZombieProperties");
+               Singleton<ZombieManager>.instance.DestroyProperties(this);
+               Singleton<LoadingManager>.instance.m_loadingProfilerMain.EndLoading();
+           }
+       }
     }
 
 }
