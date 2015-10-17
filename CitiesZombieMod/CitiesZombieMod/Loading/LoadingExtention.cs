@@ -1,4 +1,5 @@
-﻿using ICities;
+﻿using ColossalFramework;
+using ICities;
 
 namespace CitiesZombieMod
 {
@@ -19,10 +20,7 @@ namespace CitiesZombieMod
             {
                 if (mode != LoadMode.NewGame && mode != LoadMode.LoadGame) return;
 
-             //   if (ZombieManagerThread.Instance != null)
-             //   {
-             //       ZombieManagerThread.Instance.OnLevelLoaded(mode);
-             //   }
+                SimulationManager.RegisterManager(Singleton<ZombieManager>.instance);
 
                 if (_helper != null)
                 {
@@ -32,11 +30,6 @@ namespace CitiesZombieMod
 
             public override void OnLevelUnloading()
             {
-              //  if (ZombieManagerThread.Instance != null)
-              //  {
-              //      ZombieManagerThread.Instance.OnLevelUnloading();
-              //  }
-
                 if (_helper != null)
                 {
                     _helper.GameLoaded = false;

@@ -11,15 +11,19 @@ namespace CitiesZombieMod
 
         private void Awake()
         {
-           if (Application.isPlaying)
+            Logger.LogClassAndMethodName(this.GetType().Name, System.Reflection.MethodBase.GetCurrentMethod().Name);
+            Logger.Log("Application.IsPlaying: " + Application.isPlaying);
+            if (Application.isPlaying)
            {
-               Singleton<LoadingManager>.instance.QueueLoadingAction(this.InitializeProperties());
+                Logger.LogClassAndMethodName(this.GetType().Name, System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Singleton<LoadingManager>.instance.QueueLoadingAction(this.InitializeProperties());
            }
         }
 
         [DebuggerHidden]
         private IEnumerator InitializeProperties()
         {
+            Logger.LogClassAndMethodName(this.GetType().Name, System.Reflection.MethodBase.GetCurrentMethod().Name);
             return (IEnumerator) new ZombieProperties();
         }
 

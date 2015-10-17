@@ -211,21 +211,21 @@ namespace CitiesZombieMod
                 {
                     _lastId = _id;
                     Vector3 position = GetPosition(_human);
-                    Logger.Log(_citizenManager.GetCitizenName(_id) + " died at location " + _human.CurrentLocation + " at world posistion " + position);
+                   /// Logger.Log(_citizenManager.GetCitizenName(_id) + " died at location " + _human.CurrentLocation + " at world posistion " + position);
 
                     uint zombieId;
                     ushort zombieInstanceID;
                     if(Singleton<ZombieManager>.instance.CreateZombie(out zombieId, ref Singleton<SimulationManager>.instance.m_randomizer))
                     {
-                        Logger.Log("1");
-                        ZombieInfo zombieInfo = new ZombieInfo();
-                        Logger.Log("2");
+                        //Logger.Log("1");
+                       // ZombieInfo zombieInfo = new ZombieInfo();
+                       // Logger.Log("2");
                        // zombieInfo.InitializePrefab();
-                        Logger.Log("3");
+                       // Logger.Log("3");
                        // zombieInfo.InitializePrefabInstance();
-                        Logger.Log("4");
-                        Singleton<ZombieManager>.instance.CreateZombieInstance(out zombieInstanceID, ref Singleton<SimulationManager>.instance.m_randomizer, zombieInfo, zombieId);
-                        Logger.Log("5");
+                       // Logger.Log("4");
+                       // Singleton<ZombieManager>.instance.CreateZombieInstance(out zombieInstanceID, ref Singleton<SimulationManager>.instance.m_randomizer, zombieInfo, zombieId);
+                      //  Logger.Log("5");
                     } 
                    // _zombieManager.SpawnZombie(position);
                     _mapping.AddTurnedMapping(_human.GetCitizenInfo(_id));
